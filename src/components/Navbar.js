@@ -59,6 +59,9 @@ const Navbar = () => {
                             </span>
                         )}
                     </Link>
+                    <Link to="/my-orders" className="text-gray-600 hover:text-blue-600 font-medium">
+                        📦 Đơn hàng của tôi
+                    </Link>
                     {username ? (
                         <div className="flex items-center gap-3">
                             <span className="text-gray-700 font-medium">👋 {username}</span>

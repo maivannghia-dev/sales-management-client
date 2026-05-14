@@ -49,6 +49,22 @@ const Products = () => {
         }
     };
 
+    const handleCategoryFilter = async (e) => {
+        const catId = e.target.value;
+        setSelectedCategory(catId);
+        setSearch('');
+        if (catId) {
+            const res = await axios.get(
+                `http://localhost:8080/products/category/${catId}?page=0&size=${pageSize}`
+            );
+            setProducts(res.data.content);
+            setTotalPages(res.data.totalPages);
+            setCurrentPage(0);
+        } else {
+            fetchProducts();
+        }
+    };
+
     if (loading) return <div className="text-center mt-20">Đang tải...</div>;
 
     return (
@@ -66,7 +82,7 @@ const Products = () => {
                 />
                 <select
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    onChange={handleCategoryFilter}
                     className="border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 w-48">
                     <option value="">Tất cả danh mục</option>
                     {categories.map(cat => (
